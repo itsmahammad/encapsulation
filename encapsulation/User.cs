@@ -4,34 +4,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace encapsulation
+namespace Encapsulation
 {
     internal class User
     {
-        private int _Id;
+        private int _id;
         public string Fullname { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
+        private string _password;
         public int Age { get; set; }
 
-        private static int _Counter = 0;
+        private static int _counter = 0;
         public int Id
         {
-            get { return _Id; }
+            get { return _id; }
         }
 
-        public User(int id, string fullname, string email, string password, int age)
+        public string Password {
+            get { return _password; }
+            set
+            {
+                if (PasswordChecker(value)==true) _password = value;
+                else Console.WriteLine("invalid password");
+            }
+        }
+        
+
+        public User(string fullname, string email, string password, int age)
         {
-            _Id = id;
+            _counter++;
+            _id = _counter;
             Fullname = fullname;
             Email = email;
             Password = password;
             Age = age;
-            _Counter++;
-            id = _Counter;
+            
         }
 
-        public bool PasswordChecker(string password)
+
+        public static bool PasswordChecker(string password)
         {
             if (password.Length >= 8 && password.Any(char.IsUpper) && password.Any(char.IsLower) && password.Any(char.IsDigit))
             {
@@ -46,7 +57,7 @@ namespace encapsulation
 
         public void GetInfo()
         {
-            Console.WriteLine($"Id: {_Id}, Fullname: {Fullname}, Email: {Email}");
+            Console.WriteLine($"Id: {Id}, Fullname: {Fullname}, Email: {Email}, Age: {Age}");
         }
 
     }
